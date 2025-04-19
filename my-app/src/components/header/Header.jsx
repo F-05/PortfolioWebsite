@@ -30,11 +30,18 @@ const Header = () => {
                     <ul className="nav__list grid">
                         <li className="nav__item">
                             <a href="#theme" className="nav__link active-link">
-                                <img 
-                                    src={darkMode ? sunIcon : moonIcon} 
-                                    onClick={() => setDarkMode(!darkMode)}
-                                    style={{ width: "24px", height: "24px", cursor: "pointer", marginLeft: "1rem", marginBottom: "0.5rem"}}
-                                />
+                            <img 
+                                src={darkMode ? sunIcon : moonIcon}
+                                alt="Toggle Theme"
+                                onClick={() => setDarkMode(!darkMode)}
+                                style={{
+                                width: "24px",
+                                height: "24px",
+                                cursor: "pointer",
+                                display: "block",
+                                margin: "0 auto"
+                                }}
+                            />
                             </a>
                         </li>
 
