@@ -80,7 +80,7 @@
     width: 100%;
     height: 100%;
     border: 2px solid rgba(0, 0, 0, 0.3);
-    background: none;
+    background: var(--container-color);
     color: var(--text-color);
     border-radius: 0.75rem;
     padding: 1.5rem;

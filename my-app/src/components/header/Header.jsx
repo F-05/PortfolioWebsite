@@ -21,6 +21,41 @@ const Header = () => {
     }
     }, [darkMode]);
 
+    useEffect(() => {
+        const sections = document.querySelectorAll("section[id]");
+      
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              const navLink = document.querySelector(
+                `.nav__menu a[href="#${entry.target.id}"]`
+              );
+              if (entry.isIntersecting) {
+                navLink?.classList.add("active-link");
+              } else {
+                navLink?.classList.remove("active-link");
+              }
+            });
+          },
+          {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.6,
+          }
+        );
+      
+        sections.forEach((section) => {
+          observer.observe(section);
+        });
+      
+        return () => {
+          sections.forEach((section) => {
+            observer.unobserve(section);
+          });
+        };
+      }, []);
+      
+
     return (
         <header className="header">
             <nav className="nav container">
@@ -29,7 +64,7 @@ const Header = () => {
                 <div className={Toggle ? "nav__menu show-menu": "nav__menu"}>
                     <ul className="nav__list grid">
                         <li className="nav__item">
-                            <a href="#theme" className="nav__link active-link">
+                            <a href="#theme" className="nav__link">
                             <img 
                                 src={darkMode ? sunIcon : moonIcon}
                                 alt="Toggle Theme"
@@ -60,6 +95,12 @@ const Header = () => {
                         <li className="nav__item">
                             <a href="#skills" className="nav__link">
                                 <i className="uil uil-file-alt nav__icon"></i> Skills
+                            </a>
+                        </li>
+
+                        <li className="nav__item">
+                            <a href="#qualification" className="nav__link">
+                                <i className="uil uil-briefcase-alt nav__icon"></i> Qualification
                             </a>
                         </li>
 
