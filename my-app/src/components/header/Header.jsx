@@ -6,6 +6,7 @@ import sunIcon from "../../assets/sun.png";
 const Header = () => {
     /* ======= Toggle Menu ======= */
     const[Toggle, showMenu] = useState(false);
+
     const [darkMode, setDarkMode] = useState(() => {
         return localStorage.getItem("theme") === "dark";
       });
@@ -55,6 +56,15 @@ const Header = () => {
         };
       }, []);
       
+      window.addEventListener("scroll", function() {
+        const header = this.document.querySelector(".header");
+        // When the scroll is higher than 200 viewport height, add the scroll-header class to a tag with the header tag
+        if (this.scrollY >= 80) 
+            header.classList.add("scroll-header");
+        else 
+            header.classList.remove("scroll-header");
+      });
+
 
     return (
         <header className="header">
