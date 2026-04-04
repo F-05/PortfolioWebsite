@@ -11,16 +11,23 @@ const About = () => {
         <span className="section__subtitle">My Introduction</span>
 
         <div className="about__container container grid">
-            <img src={AboutImg} alt="" className="about__img" />
+            <img src={AboutImg} alt="Fideris Susanto portrait" className="about__img" />
 
             <div className="about__data">
                 <Info />
 
-                <p className="about__description">I just started on my software engineering endeavor and are currently exploring different areas of programming.</p>
+                <p className="about__description">
+                    Final-year Software Engineering student at the Univeristy of Sydney with hands-on experience 
+                    in full-stack develoment gained through internships, hackathons, and academic projects. Proficient 
+                    in <b>Python</b>, <b>Java</b>, <b>JavaScript</b>, and <b>SQL</b>, with a strong interest in applying 
+                    technical skills to build practical solutions and solve real-world problems. I am eaget to contribute 
+                    to a dynamic team, grow my skills, and make an impact through thoughtful software development, 
+                    while continuously learning new technologies and taking on new challenges.
+                </p>
 
                 <a download="" href={CV} className="button button--flex">Download CV
                     <svg
-                    class="button__icon"
+                    className="button__icon"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
