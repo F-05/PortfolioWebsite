@@ -2,7 +2,6 @@ import React from 'react'
 import "./about.css";
 import AboutImg from "../../assets/about.jpg";
 import CV from "../../assets/Fideris-CV.pdf";
-import Info from './Info';
 
 const About = () => {
   return (
@@ -14,7 +13,6 @@ const About = () => {
             <img src={AboutImg} alt="Fideris Susanto portrait" className="about__img" />
 
             <div className="about__data">
-                <Info />
 
                 <p className="about__description">
                     Final-year Software Engineering student at the Univeristy of Sydney with hands-on experience 
