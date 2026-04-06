@@ -105,6 +105,23 @@
     resize: none;
 }
 
+.contact__status {
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.contact__status--pending {
+    color: var(--text-color);
+}
+
+.contact__status--success {
+    color: #1d7a44;
+}
+
+.contact__status--error {
+    color: #b42318;
+}
+
 /* ======= BREAKPOINTS ======= */
 /* For large devices */
 @media screen and (max-width: 992px) {

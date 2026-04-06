@@ -1,18 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import "./contact.css"
 
 const Contact = () => {
     const form = useRef();
+    const [status, setStatus] = useState({ type: "", message: "" });
 
-    const sendEmail = (e) => {
+    const sendEmail = async (e) => {
       e.preventDefault();
-  
-      emailjs
-        .sendForm('service_5lh0n6s', 'template_66ujh2r', form.current, {
+
+      setStatus({ type: "pending", message: "Sending your message..." });
+
+      try {
+        await emailjs.sendForm('service_5lh0n6s', 'template_66ujh2r', form.current, {
           publicKey: 'x0j384wECIQFxKHCS',
-        })
-        e.target.reset()
+        });
+
+        e.target.reset();
+        setStatus({ type: "success", message: "Thanks for reaching out. Your message has been sent." });
+      } catch (error) {
+        setStatus({ type: "error", message: "Something went wrong while sending. Please email me directly instead." });
+      }
     };
 
     return (
@@ -51,6 +59,7 @@ const Contact = () => {
                                 name="name" 
                                 className="contact__form-input" 
                                 placeholder="Insert your name" 
+                                required
                             />
                         </div>
 
@@ -61,18 +70,19 @@ const Contact = () => {
                                 name="email" 
                                 className="contact__form-input" 
                                 placeholder="Insert your email" 
+                                required
                             />
                         </div>
 
                         <div className="contact__form-div contact__form-area">
                             <label className="contact__form-tag">Message</label>
-                            <textarea name="message" cols="30" rows="10" className="contact__form-input" placeholder="Write me a message"></textarea>
+                            <textarea name="message" cols="30" rows="10" className="contact__form-input" placeholder="Write me a message" required></textarea>
                         </div>
 
                         <button className="button button--flex">
                             Send Message
                             <svg
-                                class="button__icon"
+                                className="button__icon"
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
@@ -85,10 +95,16 @@ const Contact = () => {
                                 ></path>
                                 <path
                                     d="M10.11 14.7052C9.92005 14.7052 9.73005 14.6352 9.58005 14.4852C9.29005 14.1952 9.29005 13.7152 9.58005 13.4252L13.16 9.83518C13.45 9.54518 13.93 9.54518 14.22 9.83518C14.51 10.1252 14.51 10.6052 14.22 10.8952L10.64 14.4852C10.5 14.6352 10.3 14.7052 10.11 14.7052Z"
-                                    fill="var(--container-color"
+                                    fill="var(--container-color)"
                                 ></path>
                             </svg>
-                        </button>      
+                        </button>
+
+                        {status.message && (
+                            <p className={`contact__status contact__status--${status.type}`}>
+                                {status.message}
+                            </p>
+                        )}
                     </form>
                 </div>
 
