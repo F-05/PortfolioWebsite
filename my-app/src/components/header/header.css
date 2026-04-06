@@ -16,7 +16,8 @@
 }
 
 .nav__logo,
-.nav__toggle {
+.nav__toggle,
+.nav__theme-toggle {
     color: var(--title-color);
     font-weight: var(--font-medium);
 }
@@ -34,6 +35,11 @@
     color: var(--title-color);
     font-weight: var(--font-medium);
     transition: .3s;
+}
+
+.nav__theme-toggle {
+    background: transparent;
+    padding: 0;
 }
 
 .nav__icon,
