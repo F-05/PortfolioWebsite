@@ -9,6 +9,10 @@ const Contact = () => {
     const sendEmail = async (e) => {
       e.preventDefault();
 
+      if (status.type === "pending") {
+        return;
+      }
+
       setStatus({ type: "pending", message: "Sending your message..." });
 
       try {
@@ -58,8 +62,9 @@ const Contact = () => {
                     <form ref={form} onSubmit={sendEmail}
                     className="contact__form">
                         <div className="contact__form-div">
-                            <label className="contact__form-tag">Name</label>
+                            <label className="contact__form-tag" htmlFor="contact-name">Name</label>
                             <input 
+                                id="contact-name"
                                 type="text" 
                                 name="name" 
                                 className="contact__form-input" 
@@ -69,8 +74,9 @@ const Contact = () => {
                         </div>
 
                         <div className="contact__form-div">
-                            <label className="contact__form-tag">Mail</label>
+                            <label className="contact__form-tag" htmlFor="contact-email">Mail</label>
                             <input 
+                                id="contact-email"
                                 type="email" 
                                 name="email" 
                                 className="contact__form-input" 
@@ -80,12 +86,24 @@ const Contact = () => {
                         </div>
 
                         <div className="contact__form-div contact__form-area">
-                            <label className="contact__form-tag">Message</label>
-                            <textarea name="message" cols="30" rows="10" className="contact__form-input" placeholder="Write me a message" required></textarea>
+                            <label className="contact__form-tag" htmlFor="contact-message">Message</label>
+                            <textarea
+                                id="contact-message"
+                                name="message"
+                                cols="30"
+                                rows="10"
+                                className="contact__form-input"
+                                placeholder="Write me a message"
+                                required
+                            ></textarea>
                         </div>
 
-                        <button className="button button--flex">
-                            Send Message
+                        <button
+                            className="button button--flex"
+                            type="submit"
+                            disabled={status.type === "pending"}
+                        >
+                            {status.type === "pending" ? "Sending..." : "Send Message"}
                             <svg
                                 className="button__icon"
                                 xmlns="http://www.w3.org/2000/svg"
