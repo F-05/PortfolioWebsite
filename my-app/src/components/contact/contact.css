@@ -92,9 +92,10 @@
     top: -0.75rem;
     left: 1.25rem;
     font-size: var(--smaller-font-size);
-    padding: 0.25rem;
+    padding: 0.25rem 0.5rem;
     background-color: var(--body-color);
     z-index: 10;
+    border-radius: 0.5rem;
 }
 
 .contact__form-area {
