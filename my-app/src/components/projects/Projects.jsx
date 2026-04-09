@@ -1,9 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import './projects.css';
+import portfolioPreview from '../../assets/portfolio-preview.png';
+import trashScanPreview from '../../assets/trashscan-preview.png';
 
 const projectData = [
   {
-    title: 'Developer Portfolio Website',
+    title: 'Portfolio Website',
+    image: portfolioPreview,
     description:
       'A personal portfolio built to present my background, skills, and growing project experience in a clean, responsive format.',
     highlights: [
@@ -12,27 +15,27 @@ const projectData = [
       'Integrated a direct contact flow and downloadable CV for recruiters.'
     ],
     stack: ['React', 'CSS', 'JavaScript', 'EmailJS', 'Responsive Design'],
-    liveLabel: 'Portfolio',
+    liveLabel: 'Preview',
     liveHref: '#home',
     codeLabel: 'Source',
     codeHref: 'https://github.com/F-05'
   },
   {
     title: 'TrashScan: A Litter Detection App',
+    image: trashScanPreview,
     description:
-      'A hackathon project that uses machine learning to detect and classify trash from live video feeds into 3 categories in real time.',
+      'A hackathon project that uses machine learning to detect and classify litter from live video feeds into 3 categories in real time.',
     highlights: [
-      'Trained and deployed a YOLOv8 model for real-time trash detection.',
+      'Trained and deployed a YOLOv8 model for real-time litter detection.',
       'Developed a user-friendly interface for real-time video analysis.',
       'Built a FastAPI backend to connect the interface with model inference.'
     ],
     stack: ['Python', 'FastAPI', 'React', 'JavaScript', 'CSS', 'YOLOv8'],
-    liveLabel: 'Project',
+    liveLabel: 'Preview',
     liveHref: 'https://trash-scan.vercel.app',
     codeLabel: 'Source',
     codeHref: 'https://github.com/F-05/TrashScan'
   }
-
 ];
 
 const buildGoals = [
@@ -42,13 +45,29 @@ const buildGoals = [
   'A job application tracker with status updates and interview notes.',
 ];
 
+const renderHighlights = (items) =>
+  items.map((item) => (
+    <li className="projects__highlight" key={item}>
+      {item}
+    </li>
+  ));
+
+const renderStack = (items) =>
+  items.map((item) => (
+    <span className="projects__tag" key={item}>
+      {item}
+    </span>
+  ));
+
 const Projects = () => {
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
-  const touchStartX = useRef(null);
+  const [isFlipped, setIsFlipped] = useState(false);
   const activeProject = projectData[activeProjectIndex];
+  const currentProjectLabel = `${activeProjectIndex + 1} / ${projectData.length}`;
 
   const showProject = (index) => {
     const totalProjects = projectData.length;
+    setIsFlipped(false);
     setActiveProjectIndex((index + totalProjects) % totalProjects);
   };
 
@@ -60,26 +79,12 @@ const Projects = () => {
     showProject(activeProjectIndex - 1);
   };
 
-  const handleTouchStart = (event) => {
-    touchStartX.current = event.touches[0].clientX;
+  const handleFlip = () => {
+    setIsFlipped(true);
   };
 
-  const handleTouchEnd = (event) => {
-    if (touchStartX.current === null) {
-      return;
-    }
-
-    const touchEndX = event.changedTouches[0].clientX;
-    const swipeDistance = touchStartX.current - touchEndX;
-    const swipeThreshold = 50;
-
-    if (swipeDistance > swipeThreshold) {
-      showNextProject();
-    } else if (swipeDistance < -swipeThreshold) {
-      showPreviousProject();
-    }
-
-    touchStartX.current = null;
+  const handleResetFlip = () => {
+    setIsFlipped(false);
   };
 
   return (
@@ -92,51 +97,83 @@ const Projects = () => {
           <div className="projects__carousel">
             <div className="projects__stage">
               <article
-                className="projects__card"
+                className={`projects__card ${isFlipped ? 'projects__card--flipped' : ''}`}
                 key={activeProject.title}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
               >
-              <div className="projects__content">
-                <span className="projects__eyebrow">Featured Project</span>
-                <div className="projects__heading">
-                  <h3 className="projects__title">{activeProject.title}</h3>
-                  <span className="projects__counter">
-                    {activeProjectIndex + 1} / {projectData.length}
-                  </span>
-                </div>
-                <p className="projects__description">{activeProject.description}</p>
+                <div className="projects__card-face projects__card-face--front">
+                  <div className="projects__content">
+                    <span className="projects__eyebrow">Featured Project</span>
 
-                <ul className="projects__highlights">
-                  {activeProject.highlights.map((highlight) => (
-                    <li className="projects__highlight" key={highlight}>
-                      {highlight}
-                    </li>
-                  ))}
-                </ul>
+                    <div className="projects__heading">
+                      <h3 className="projects__title">{activeProject.title}</h3>
+                      <span className="projects__counter">{currentProjectLabel}</span>
+                    </div>
 
-                <div className="projects__stack">
-                  {activeProject.stack.map((item) => (
-                    <span className="projects__tag" key={item}>
-                      {item}
-                    </span>
-                  ))}
+                    <p className="projects__description">{activeProject.description}</p>
+
+                    <ul className="projects__highlights">
+                      {renderHighlights(activeProject.highlights)}
+                    </ul>
+
+                    <div className="projects__stack">{renderStack(activeProject.stack)}</div>
+
+                    <div className="projects__links">
+                      <a
+                        className="button button--flex projects__link-button"
+                        href={activeProject.liveHref}
+                      >
+                        {activeProject.liveLabel}
+                      </a>
+
+                      <a
+                        className="projects__link"
+                        href={activeProject.codeHref}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {activeProject.codeLabel}
+                      </a>
+
+                      <button
+                        type="button"
+                        className="projects__flip-button"
+                        onClick={handleFlip}
+                      >
+                        Click Me
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="projects__links">
-                  <a className="button button--flex" href={activeProject.liveHref}>
-                    {activeProject.liveLabel}
-                  </a>
-                  <a
-                    className="projects__link"
-                    href={activeProject.codeHref}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {activeProject.codeLabel}
-                  </a>
+                <div className="projects__card-face projects__card-face--back">
+                  <div className="projects__content">
+                    <span className="projects__eyebrow">Project Preview</span>
+
+                    <div className="projects__preview">
+                      <div className="projects__preview-window">
+                        <span className="projects__preview-dot"></span>
+                        <span className="projects__preview-dot"></span>
+                        <span className="projects__preview-dot"></span>
+                      </div>
+
+                      <div className="projects__preview-body">
+                        <img
+                          src={activeProject.image}
+                          alt={`${activeProject.title} preview`}
+                          className="projects__image"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="projects__flip-button projects__flip-button--secondary"
+                      onClick={handleResetFlip}
+                    >
+                      Back to Details
+                    </button>
+                  </div>
                 </div>
-              </div>
               </article>
             </div>
 
@@ -164,15 +201,11 @@ const Projects = () => {
             <span className="projects__eyebrow">Next Steps</span>
             <h3 className="projects__title">Projects I am interested in working on</h3>
             <p className="projects__description">
-              I am actively building my portfolio and looking for projects that will help me grow as a developer. 
+              I am actively building my portfolio and looking for projects that will help me grow as a developer.
               Here are some of the types of projects I am interested in working on next:
             </p>
             <ul className="projects__highlights">
-              {buildGoals.map((goal) => (
-                <li className="projects__highlight" key={goal}>
-                  {goal}
-                </li>
-              ))}
+              {renderHighlights(buildGoals)}
             </ul>
           </aside>
         </div>
