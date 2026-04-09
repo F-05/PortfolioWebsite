@@ -15,11 +15,11 @@ const About = () => {
             <div className="about__data">
 
                 <p className="about__description">
-                    Final-year Software Engineering student at the Univeristy of Sydney with hands-on experience 
-                    in full-stack develoment gained through internships, hackathons, and academic projects. Proficient 
-                    in <b>Python</b>, <b>Java</b>, <b>JavaScript</b>, and <b>SQL</b>, with a strong interest in applying 
-                    technical skills to build practical solutions and solve real-world problems. I am eaget to contribute 
-                    to a dynamic team, grow my skills, and make an impact through thoughtful software development, 
+                    Final-year Software Engineering student at the University of Sydney with hands-on experience 
+                    in full-stack development gained through internships, hackathons, and academic projects. Proficient 
+                    in <b>Python</b>, <b>Java</b>, <b>JavaScript</b>, <b>SQL</b>, and <b>React</b>, with a strong interest in applying 
+                    technical skills to build practical solutions and solve real-world problems. Eager to contribute 
+                    to a dynamic team, grow my skills, and create impact through thoughtful software development, 
                     while continuously learning new technologies and taking on new challenges.
                 </p>
 
