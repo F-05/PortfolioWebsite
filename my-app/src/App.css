@@ -12,6 +12,12 @@
   --text-color: hsl(var(--hue), var(--sat), 46%);
   --body-color: hsl(var(--hue), var(--sat), 98%);
   --container-color: #FFF;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --surface-muted-color: rgba(127, 127, 127, 0.06);
+  --surface-accent-color: rgba(127, 127, 127, 0.12);
+  --overlay-color: rgba(0, 0, 0, 0.18);
+  --glow-color: rgba(160, 160, 160, 0.45);
+  --glow-color-faded: rgba(160, 160, 160, 0);
 
   /* ======= Font and typography ======= */
   --body-font: "Poppins", sans-serif;
@@ -54,6 +60,12 @@
   --text-color: hsl(var(--hue), var(--sat), 70%);
   --body-color: hsl(var(--hue), var(--sat), 10%);
   --container-color: hsl(var(--hue), var(--sat), 15%);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --surface-muted-color: rgba(255, 255, 255, 0.04);
+  --surface-accent-color: rgba(255, 255, 255, 0.1);
+  --overlay-color: rgba(255, 255, 255, 0.18);
+  --glow-color: rgba(220, 220, 220, 0.28);
+  --glow-color-faded: rgba(220, 220, 220, 0);
 }
 
 /* Responsive typography */
